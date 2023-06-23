@@ -1,6 +1,6 @@
 from common import *
 from buffer import ReplayBuffer
-from modelsQ import DeepQNetwork
+from modelsQ import DeepQNetwork, DuelingNetwork
 
 
 #Module Variables
@@ -11,11 +11,11 @@ TAU = 1e-3 # for soft update from local network to taget network
 LR = 5e-4 # learning rate 
 UPDATE_EVERY = 4 # number of frames used to update the local network
 
-class DQNAgent():
+class Agent():
     """ Implementaion of a Vanilla DQN Agent. Please refer to the dqn/solution directory inside here:
         https://github.com/udacity/deep-reinforcement-learning/tree/master/dqn
     """
-    def __init__(self, state_size, action_size, seed):
+    def __init__(self, state_size, action_size, seed, duelingQNet=False):
         """ Initialization of the agent class 
         
         Params
@@ -30,8 +30,8 @@ class DQNAgent():
         self.seed = random.seed(seed)
         
         #Deep-Q Networks
-        self.qnet_local = DeepQNetwork(state_size, action_size, seed).to(device) 
-        self.qnet_target = DeepQNetwork(state_size, action_size, seed).to(device) 
+        self.qnet_local = DeepQNetwork(state_size, action_size, seed).to(device) if not duelingQNet else DuelingNetwork(state_size, action_size, seed).to(device)
+        self.qnet_target = DeepQNetwork(state_size, action_size, seed).to(device) if not duelingQNet else DuelingNetwork(state_size, action_size, seed).to(device)
         self.optimizer = optim.Adam(self.qnet_local.parameters(), lr=LR)
         
         #Buffer - Replay memory
