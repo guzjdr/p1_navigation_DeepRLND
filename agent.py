@@ -12,7 +12,9 @@ LR = 5e-4 # learning rate
 UPDATE_EVERY = 4 # number of frames used to update the local network
 
 class DQNAgent():
-    """ Implementaion of a DQN Agent. Please refer to the dqn/solution directory inside the cloned repo. """
+    """ Implementaion of a Vanilla DQN Agent. Please refer to the dqn/solution directory inside here:
+        https://github.com/udacity/deep-reinforcement-learning/tree/master/dqn
+    """
     def __init__(self, state_size, action_size, seed):
         """ Initialization of the agent class 
         
@@ -41,11 +43,11 @@ class DQNAgent():
         """ Collection of experiences and learning from those experiences 
         Params
         ******
-            state (): previous observed agent state
-            action (): Action taken to change from state to next_state
-            reward (): Reward acquired from state-action pair
-            next_state (): Next observed agent state
-            done (): Sequence is done boolean
+            state (Numpy Array): previous observed agent state
+            action (int): Action taken to change from state to next_state
+            reward (float): Reward acquired from state-action pair
+            next_state (Numpy Array): Next observed agent state
+            done (boolean): Sequence is done boolean
         """
         #Update memory
             #pdb.set_trace() - For Debugging
@@ -63,7 +65,7 @@ class DQNAgent():
         Compute the action based on the current state vector
         Params
         ******
-            state (): current state
+            state (Numpy Array): current state
             eps (float): epsilon greedy action (exploration v.s. exploitation) parameter
         """
         state = torch.from_numpy(state).float().unsqueeze(0).to(device)

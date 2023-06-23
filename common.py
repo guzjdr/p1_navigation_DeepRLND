@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from collections import namedtuple, deque
 import pdb;
 
-#Unitx Environment
+#Unity Environment
 from unityagents import UnityEnvironment
 
 #Torch GPU configuration
